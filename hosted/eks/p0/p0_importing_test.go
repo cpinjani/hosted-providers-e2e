@@ -18,7 +18,7 @@ var _ = Describe("P0Importing", func() {
 	var (
 		clusterName string
 		ctx         helpers.Context
-		region      = "us-west-2"
+		region      = "us-west-1"
 		k8sVersion  = "1.26"
 		increaseBy  = 1
 	)
