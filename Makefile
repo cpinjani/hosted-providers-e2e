@@ -59,6 +59,7 @@ install-rancher: ## Install Rancher via Helm on the k8s cluster
 		--set rancherImageTag=v${RANCHER_VERSION} \
 		--wait
 	kubectl rollout status deployment rancher -n cattle-system --timeout=300s
+	kubectl rollout status deployment rancher-webhook -n cattle-system --timeout=300s
 
 install-rancher-hosted-nightly-chart: ## Install Rancher via Helm with hosted providers nightly chart
 	helm repo add rancher-latest https://releases.rancher.com/server-charts/latest
@@ -76,6 +77,7 @@ install-rancher-hosted-nightly-chart: ## Install Rancher via Helm with hosted pr
 		--set-string 'extraEnv[0].value=true' \
 		--wait
 	kubectl rollout status deployment rancher -n cattle-system --timeout=300s
+	kubectl rollout status deployment rancher-webhook -n cattle-system --timeout=300s
 	helm install ${PROVIDER}-operator-crds  oci://ttl.sh/${PROVIDER}-operator/rancher-${PROVIDER}-operator-crd --version ${BUILD_DATE}
 	helm install ${PROVIDER}-operator oci://ttl.sh/${PROVIDER}-operator/rancher-${PROVIDER}-operator --version ${BUILD_DATE} --namespace cattle-system
 
